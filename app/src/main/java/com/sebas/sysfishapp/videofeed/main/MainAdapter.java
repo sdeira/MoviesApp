@@ -3,8 +3,10 @@ package com.sebas.sysfishapp.videofeed.main;
 import android.view.View;
 
 import com.sebas.sysfishapp.videofeed.BaseAdapter;
+import com.sebas.sysfishapp.videofeed.R;
 import com.sebas.sysfishapp.videofeed.model.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,14 +14,29 @@ import java.util.List;
  */
 
 public class MainAdapter extends BaseAdapter<MovieViewHolder, Movie> {
-    private final List<Movie> list;
+    private List<Movie> list = new ArrayList<>();
 
     /**
      * Constructor
-     * @param list the list of movies
      */
-    public MainAdapter(final List<Movie> list) {
-        this.list = list;
+    public MainAdapter() {
+
+    }
+
+    public void setMovies(final List<Movie> movies) {
+        list.clear();
+        list.addAll(movies);
+        notifyDataSetChanged();
+    }
+
+    public void addMovies(final List<Movie> newMovies) {
+        final int initialSize = list.size();
+        for (final Movie movie : newMovies) {
+            if (!list.contains(movie)) {
+                list.add(movie);
+            }
+        }
+        notifyItemRangeInserted(initialSize, list.size() - initialSize);
     }
 
     @Override
@@ -39,7 +56,12 @@ public class MainAdapter extends BaseAdapter<MovieViewHolder, Movie> {
     }
 
     @Override
-    protected MovieViewHolder onCreateChildViewHolder(View itemView, int viewType) {
+    protected int getViewLayout() {
+        return R.layout.movie_row;
+    }
+
+    @Override
+    protected MovieViewHolder onCreateChildViewHolder(View itemView) {
         return new MovieViewHolder(itemView);
     }
 }

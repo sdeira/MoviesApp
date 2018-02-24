@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.sebas.sysfishapp.videofeed.R;
+import com.sebas.sysfishapp.videofeed.Settings;
 
 /**
  * Created by sebastiandeira on 24/2/18.
@@ -27,7 +28,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
         final TextView textViewAirDate = itemView.findViewById(R.id.air_date);
         final TextView textViewOverview = itemView.findViewById(R.id.overview);
         final TextView textViewVotes = itemView.findViewById(R.id.movie_votes);
-        simpleDraweeView.setImageURI(imageUri);
+        simpleDraweeView.setImageURI(Settings.MOVIE_IMAGE_URL + imageUri);
         textViewName.setText(name);
         textViewAirDate.setText(airDate);
         textViewOverview.setText(overview);

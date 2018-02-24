@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.sebas.sysfishapp.videofeed.main.MovieViewHolder;
-
 /**
  * Created by sebastiandeira on 24/2/18.
  */
@@ -16,10 +14,9 @@ public abstract class BaseAdapter<T extends RecyclerView.ViewHolder, I> extends 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final RecyclerView.ViewHolder holder;
-        final View itemView = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
+        final View itemView = LayoutInflater.from(parent.getContext()).inflate(getViewLayout(), parent, false);
 
-        return onCreateChildViewHolder(itemView, viewType);
+        return onCreateChildViewHolder(itemView);
     }
 
     @Override
@@ -36,5 +33,8 @@ public abstract class BaseAdapter<T extends RecyclerView.ViewHolder, I> extends 
 
     protected abstract void onBindChildViewHolder(T holder, int position);
 
-    protected abstract T onCreateChildViewHolder(final View itemView, @LayoutRes int viewType);
+    @LayoutRes
+    protected abstract int getViewLayout();
+
+    protected abstract T onCreateChildViewHolder(final View itemView);
 }

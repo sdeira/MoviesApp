@@ -3,17 +3,28 @@ package com.sebas.sysfishapp.videofeed.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by sebastiandeira on 24/2/18.
  */
 
 public class Movie implements Parcelable {
     private String name;
+
+    @SerializedName("vote_count")
     private String voteCount;
+
+    @SerializedName("first_air_date")
     private String firstAirDate;
+    @SerializedName("original_langueage")
     private String originalLanguage;
+
+    @SerializedName("vote_average")
     private String voteAverage;
     private String overview;
+
+    @SerializedName("poster_path")
     private String posterPath;
 
 

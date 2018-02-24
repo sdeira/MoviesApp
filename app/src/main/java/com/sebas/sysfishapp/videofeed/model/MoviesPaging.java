@@ -3,6 +3,8 @@ package com.sebas.sysfishapp.videofeed.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -11,7 +13,11 @@ import java.util.List;
 
 public class MoviesPaging implements Parcelable {
     private int page;
+
+    @SerializedName("total_results")
     private int totalResults;
+
+    @SerializedName("total_pages")
     private int totalPages;
     private List<Movie> results;
 
@@ -46,4 +52,28 @@ public class MoviesPaging implements Parcelable {
             return new MoviesPaging[size];
         }
     };
+
+    public int getPage() {
+        return page;
+    }
+
+    public int getTotalResults() {
+        return totalResults;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    /**
+     * Is the last page of the movies
+     * @return true if yes, otherwise false
+     */
+    public boolean isLastPage() {
+        return page == totalPages;
+    }
+
+    public List<Movie> getResults() {
+        return results;
+    }
 }
