@@ -1,5 +1,9 @@
 package com.sebas.sysfishapp.videofeed.detail;
 
+import com.sebas.sysfishapp.videofeed.model.Movie;
+
+import java.util.List;
+
 /**
  * Created by sebastiandeira on 24/2/18.
  */
@@ -15,5 +19,11 @@ public interface DetailView {
      */
     void setupView(final String imageUrl, final String name, final String firstAirDate,
                    final String overview, final String avergeVote);
+
+    /**
+     * Setup the view with the related movies
+     * @param relatedMovies the movies to show
+     */
+    void setupRelatedMovies(final List<Movie> relatedMovies);
 
 }

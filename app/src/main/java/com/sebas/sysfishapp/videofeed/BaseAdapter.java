@@ -10,7 +10,7 @@ import android.view.ViewGroup;
  * Created by sebastiandeira on 24/2/18.
  */
 
-public abstract class BaseAdapter<T extends RecyclerView.ViewHolder, I> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

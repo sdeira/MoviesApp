@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Movie implements Parcelable {
+    private long id;
     private String name;
 
     @SerializedName("vote_count")
@@ -29,6 +30,7 @@ public class Movie implements Parcelable {
 
 
     protected Movie(Parcel in) {
+        id = in.readLong();
         name = in.readString();
         voteCount = in.readString();
         firstAirDate = in.readString();
@@ -53,6 +55,10 @@ public class Movie implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getName() {
@@ -85,6 +91,7 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
         parcel.writeString(name);
         parcel.writeString(voteCount);
         parcel.writeString(firstAirDate);

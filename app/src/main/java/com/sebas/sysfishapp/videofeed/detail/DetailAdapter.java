@@ -1,9 +1,10 @@
-package com.sebas.sysfishapp.videofeed.main;
+package com.sebas.sysfishapp.videofeed.detail;
 
 import android.view.View;
 
 import com.sebas.sysfishapp.videofeed.BaseAdapter;
 import com.sebas.sysfishapp.videofeed.R;
+import com.sebas.sysfishapp.videofeed.main.OnItemClickListener;
 import com.sebas.sysfishapp.videofeed.model.Movie;
 
 import java.lang.ref.WeakReference;
@@ -11,18 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by sebastiandeira on 24/2/18.
+ * Created by sebastiandeira on 25/2/18.
  */
 
-public class MainAdapter extends BaseAdapter<MovieViewHolder> {
+public class DetailAdapter extends BaseAdapter<RelatedMovieViewHolder> {
     private List<Movie> list = new ArrayList<>();
     private WeakReference<OnItemClickListener> listenerWeakReference;
 
     /**
-     * Constructor
+     * Default Constructor
      */
-    public MainAdapter() {
-
+    public DetailAdapter() {
     }
 
     public void setMovies(final List<Movie> movies) {
@@ -35,28 +35,13 @@ public class MainAdapter extends BaseAdapter<MovieViewHolder> {
         this.listenerWeakReference = new WeakReference<>(listener);
     }
 
-    public void addMovies(final List<Movie> newMovies) {
-        final int initialSize = list.size();
-        for (final Movie movie : newMovies) {
-            if (!list.contains(movie)) {
-                list.add(movie);
-            }
-        }
-        notifyItemRangeInserted(initialSize, list.size() - initialSize);
-    }
-
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
     @Override
     protected int getChildItemCount() {
         return list.size();
     }
 
     @Override
-    protected void onBindChildViewHolder(MovieViewHolder holder, int position) {
+    protected void onBindChildViewHolder(RelatedMovieViewHolder holder, int position) {
         final Movie movie = list.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,16 +49,16 @@ public class MainAdapter extends BaseAdapter<MovieViewHolder> {
                 listenerWeakReference.get().onMovieClick(movie);
             }
         });
-        holder.bind(movie.getPosterPath(), movie.getName(), movie.getFirstAirDate(), movie.getOverview(), movie.getVoteAverage());
+        holder.bind(movie.getPosterPath(), movie.getName());
     }
 
     @Override
     protected int getViewLayout() {
-        return R.layout.movie_row;
+        return R.layout.related_movie_row;
     }
 
     @Override
-    protected MovieViewHolder onCreateChildViewHolder(View itemView) {
-        return new MovieViewHolder(itemView);
+    protected RelatedMovieViewHolder onCreateChildViewHolder(View itemView) {
+        return new RelatedMovieViewHolder(itemView);
     }
 }

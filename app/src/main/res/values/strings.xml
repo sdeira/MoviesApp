@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">VideoFeed</string>
+    <string name="related_movies">Películas Relacionadas</string>
 </resources>
