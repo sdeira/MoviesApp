@@ -7,6 +7,9 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.sebas.sysfishapp.videofeed.R;
 import com.sebas.sysfishapp.videofeed.Settings;
+import com.sebas.sysfishapp.videofeed.widgets.ContentReview;
+
+import java.math.BigDecimal;
 
 /**
  * Created by sebastiandeira on 24/2/18.
@@ -27,12 +30,13 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
         final TextView textViewName =  itemView.findViewById(R.id.movie_name);
         final TextView textViewAirDate = itemView.findViewById(R.id.air_date);
         final TextView textViewOverview = itemView.findViewById(R.id.overview);
-        final TextView textViewVotes = itemView.findViewById(R.id.movie_votes);
+        final ContentReview contentReview = itemView.findViewById(R.id.main_activity_content_review);
         simpleDraweeView.setImageURI(Settings.MOVIE_IMAGE_URL + imageUri);
         textViewName.setText(name);
         textViewAirDate.setText(airDate);
         textViewOverview.setText(overview);
-        //TODO: add votos to string resources with the language
-        textViewVotes.setText("Votos: " + votes);
+        final BigDecimal bigDecimal = new BigDecimal(votes);
+        final BigDecimal half = bigDecimal.divide(new BigDecimal("2"));
+        contentReview.setReview(half.intValue());
     }
 }

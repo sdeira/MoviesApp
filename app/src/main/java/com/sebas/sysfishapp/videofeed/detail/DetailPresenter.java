@@ -8,6 +8,8 @@ import com.sebas.sysfishapp.videofeed.Settings;
 import com.sebas.sysfishapp.videofeed.model.Movie;
 import com.sebas.sysfishapp.videofeed.model.MoviesPaging;
 
+import java.util.List;
+
 /**
  * Created by sebastiandeira on 24/2/18.
  */
@@ -28,7 +30,12 @@ public class DetailPresenter extends MvpPresenter<DetailView> implements MoviesA
 
     @Override
     public void onSuccess(MoviesPaging moviesPaging) {
-        getView().setupRelatedMovies(moviesPaging.getResults());
+        final List<Movie> results = moviesPaging.getResults();
+        if (results.isEmpty()) {
+            getView().hideRelatedMovies();
+        } else {
+            getView().setupRelatedMovies(results);
+        }
     }
 
     @Override

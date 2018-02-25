@@ -26,4 +26,9 @@ public interface DetailView {
      */
     void setupRelatedMovies(final List<Movie> relatedMovies);
 
+    /**
+     * The movie don't have related movies so we hide it
+     */
+    void hideRelatedMovies();
+
 }

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -53,7 +54,7 @@ public class DetailActivity extends Activity implements DetailView, OnItemClickL
         nameTextView.setText(name);
         firstAirDateTextView.setText(firstAirDate);
         overviewTextView.setText(overview);
-        averageVoteTextView.setText(averageVote);
+        averageVoteTextView.setText(getResources().getString(R.string.score, averageVote));
 
     }
 
@@ -69,6 +70,14 @@ public class DetailActivity extends Activity implements DetailView, OnItemClickL
         recyclerView.addItemDecoration(dividerItemDecoration);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void hideRelatedMovies() {
+        final TextView relatedMoviesTitle = findViewById(R.id.detail_movie_related_movies_title);
+        final RecyclerView recyclerView = findViewById(R.id.detail_movie_related_movies_recycle_view);
+        relatedMoviesTitle.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
     }
 
     @Override
