@@ -77,7 +77,7 @@ public class MainActivity extends Activity implements MainView, OnItemClickListe
     @Override
     public void onMovieClick(Movie movie) {
         final Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra("movie", movie);
+        intent.putExtra(DetailActivity.EXTRA_MOVIE, movie);
         startActivity(intent);
     }
 }
