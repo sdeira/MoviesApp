@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/detail_movie_image"
+            android:id="@+id/detail_show_image"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_gravity="center_horizontal"
@@ -20,7 +20,7 @@
 
 
         <TextView
-            android:id="@+id/detail_movie_name"
+            android:id="@+id/detail_show_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -29,7 +29,7 @@
             tools:text="The walking dead" />
 
         <TextView
-            android:id="@+id/detail_movie_air_datee"
+            android:id="@+id/detail_show_air_datee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -37,7 +37,7 @@
             tools:text="2017-02-03" />
 
         <TextView
-            android:id="@+id/detail_movie_overview"
+            android:id="@+id/detail_show_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -46,23 +46,23 @@
             tools:text="Es una serie apocaliptica donde reinan los muertos vivos, y la gente esta desesperada por sobrevivir. Al limite de la supervivencia." />
 
         <TextView
-            android:id="@+id/detail_movie_vote_average"
+            android:id="@+id/detail_show_vote_average"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             tools:text="Votos: 9.3" />
 
         <TextView
-            android:id="@+id/detail_movie_related_movies_title"
+            android:id="@+id/detail_show_related_shows_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/related_movies"
+            android:text="@string/related_shows"
             android:textStyle="bold"
             android:paddingLeft="10dp"
             android:paddingStart="10dp"/>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/detail_movie_related_movies_recycle_view"
+            android:id="@+id/detail_show_related_shows_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

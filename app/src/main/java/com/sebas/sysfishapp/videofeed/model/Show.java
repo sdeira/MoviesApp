@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by sebastiandeira on 24/2/18.
  */
 
-public class Movie implements Parcelable {
+public class Show implements Parcelable {
     private long id;
     private String name;
 
@@ -29,7 +29,7 @@ public class Movie implements Parcelable {
     private String posterPath;
 
 
-    protected Movie(Parcel in) {
+    protected Show(Parcel in) {
         id = in.readLong();
         name = in.readString();
         voteCount = in.readString();
@@ -40,15 +40,15 @@ public class Movie implements Parcelable {
         posterPath = in.readString();
     }
 
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+    public static final Creator<Show> CREATOR = new Creator<Show>() {
         @Override
-        public Movie createFromParcel(Parcel in) {
-            return new Movie(in);
+        public Show createFromParcel(Parcel in) {
+            return new Show(in);
         }
 
         @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
+        public Show[] newArray(int size) {
+            return new Show[size];
         }
     };
 

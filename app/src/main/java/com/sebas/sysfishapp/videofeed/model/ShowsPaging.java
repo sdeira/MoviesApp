@@ -11,7 +11,7 @@ import java.util.List;
  * Created by sebastiandeira on 24/2/18.
  */
 
-public class MoviesPaging implements Parcelable {
+public class ShowsPaging implements Parcelable {
     private int page;
 
     @SerializedName("total_results")
@@ -19,13 +19,13 @@ public class MoviesPaging implements Parcelable {
 
     @SerializedName("total_pages")
     private int totalPages;
-    private List<Movie> results;
+    private List<Show> results;
 
-    protected MoviesPaging(Parcel in) {
+    protected ShowsPaging(Parcel in) {
         page = in.readInt();
         totalResults = in.readInt();
         totalPages = in.readInt();
-        results = in.createTypedArrayList(Movie.CREATOR);
+        results = in.createTypedArrayList(Show.CREATOR);
     }
 
     @Override
@@ -41,15 +41,15 @@ public class MoviesPaging implements Parcelable {
         return 0;
     }
 
-    public static final Creator<MoviesPaging> CREATOR = new Creator<MoviesPaging>() {
+    public static final Creator<ShowsPaging> CREATOR = new Creator<ShowsPaging>() {
         @Override
-        public MoviesPaging createFromParcel(Parcel in) {
-            return new MoviesPaging(in);
+        public ShowsPaging createFromParcel(Parcel in) {
+            return new ShowsPaging(in);
         }
 
         @Override
-        public MoviesPaging[] newArray(int size) {
-            return new MoviesPaging[size];
+        public ShowsPaging[] newArray(int size) {
+            return new ShowsPaging[size];
         }
     };
 
@@ -65,15 +65,8 @@ public class MoviesPaging implements Parcelable {
         return totalPages;
     }
 
-    /**
-     * Is the last page of the movies
-     * @return true if yes, otherwise false
-     */
-    public boolean isLastPage() {
-        return page == totalPages;
-    }
 
-    public List<Movie> getResults() {
+    public List<Show> getResults() {
         return results;
     }
 }

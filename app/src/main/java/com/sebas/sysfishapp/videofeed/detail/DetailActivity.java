@@ -13,9 +13,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.sebas.sysfishapp.videofeed.R;
 import com.sebas.sysfishapp.videofeed.main.OnItemClickListener;
-import com.sebas.sysfishapp.videofeed.model.Movie;
-
-import org.w3c.dom.Text;
+import com.sebas.sysfishapp.videofeed.model.Show;
 
 import java.util.List;
 
@@ -24,7 +22,7 @@ import java.util.List;
  */
 
 public class DetailActivity extends Activity implements DetailView, OnItemClickListener {
-    public final static String EXTRA_MOVIE = "extra_moview";
+    public final static String EXTRA_SHOW = "extra_show";
 
     private DetailAdapter adapter;
 
@@ -33,23 +31,23 @@ public class DetailActivity extends Activity implements DetailView, OnItemClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
 
-        Movie movie = null;
+        Show show = null;
         final Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            movie = bundle.getParcelable(EXTRA_MOVIE);
+            show = bundle.getParcelable(EXTRA_SHOW);
         }
 
         final DetailPresenter presenter = new DetailPresenter(this);
-        presenter.initView(this, movie);
+        presenter.initView(this, show);
     }
 
     @Override
     public void setupView(String imageUrl, String name, String firstAirDate, String overview, String averageVote) {
-        final SimpleDraweeView simpleDraweeView = findViewById(R.id.detail_movie_image);
-        final TextView nameTextView = findViewById(R.id.detail_movie_name);
-        final TextView firstAirDateTextView = findViewById(R.id.detail_movie_air_datee);
-        final TextView overviewTextView = findViewById(R.id.detail_movie_overview);
-        final TextView averageVoteTextView = findViewById(R.id.detail_movie_vote_average) ;
+        final SimpleDraweeView simpleDraweeView = findViewById(R.id.detail_show_image);
+        final TextView nameTextView = findViewById(R.id.detail_show_name);
+        final TextView firstAirDateTextView = findViewById(R.id.detail_show_air_datee);
+        final TextView overviewTextView = findViewById(R.id.detail_show_overview);
+        final TextView averageVoteTextView = findViewById(R.id.detail_show_vote_average) ;
         simpleDraweeView.setImageURI(imageUrl);
         nameTextView.setText(name);
         firstAirDateTextView.setText(firstAirDate);
@@ -59,10 +57,10 @@ public class DetailActivity extends Activity implements DetailView, OnItemClickL
     }
 
     @Override
-    public void setupRelatedMovies(List<Movie> relatedMovies) {
-        final RecyclerView recyclerView = findViewById(R.id.detail_movie_related_movies_recycle_view);
+    public void setupRelatedShows(List<Show> relatedShows) {
+        final RecyclerView recyclerView = findViewById(R.id.detail_show_related_shows_recycle_view);
         adapter = new DetailAdapter();
-        adapter.setMovies(relatedMovies);
+        adapter.setShows(relatedShows);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -73,17 +71,17 @@ public class DetailActivity extends Activity implements DetailView, OnItemClickL
     }
 
     @Override
-    public void hideRelatedMovies() {
-        final TextView relatedMoviesTitle = findViewById(R.id.detail_movie_related_movies_title);
-        final RecyclerView recyclerView = findViewById(R.id.detail_movie_related_movies_recycle_view);
-        relatedMoviesTitle.setVisibility(View.GONE);
+    public void hideRelatedShows() {
+        final TextView relatedShowsTitle = findViewById(R.id.detail_show_related_shows_title);
+        final RecyclerView recyclerView = findViewById(R.id.detail_show_related_shows_recycle_view);
+        relatedShowsTitle.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
     }
 
     @Override
-    public void onMovieClick(Movie movie) {
+    public void onShowClick(Show show) {
         final Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(EXTRA_MOVIE, movie);
+        intent.putExtra(EXTRA_SHOW, show);
         startActivity(intent);
     }
 }

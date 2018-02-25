@@ -8,17 +8,17 @@
 
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/movie_image"
+        android:id="@+id/show_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="10dp"/>
 
     <TextView
-        android:id="@+id/movie_name"
+        android:id="@+id/show_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/movie_image"
-        android:layout_toEndOf="@+id/movie_image"
+        android:layout_toRightOf="@+id/show_image"
+        android:layout_toEndOf="@+id/show_image"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -29,9 +29,9 @@
         android:id="@+id/air_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/movie_image"
-        android:layout_toEndOf="@+id/movie_image"
-        android:layout_below="@+id/movie_name"
+        android:layout_toRightOf="@+id/show_image"
+        android:layout_toEndOf="@+id/show_image"
+        android:layout_below="@+id/show_name"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
@@ -44,8 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/air_date"
-        android:layout_toRightOf="@+id/movie_image"
-        android:layout_toEndOf="@+id/movie_image"
+        android:layout_toRightOf="@+id/show_image"
+        android:layout_toEndOf="@+id/show_image"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:maxLines="3"
@@ -57,8 +57,8 @@
         android:id="@+id/main_activity_content_review"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/movie_image"
-        android:layout_toEndOf="@+id/movie_image"
+        android:layout_toRightOf="@+id/show_image"
+        android:layout_toEndOf="@+id/show_image"
         android:layout_below="@+id/overview"
         android:layout_margin="10dp">
 

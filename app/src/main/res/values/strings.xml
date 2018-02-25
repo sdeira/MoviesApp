@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">VideoFeed</string>
-    <string name="related_movies">Películas Relacionadas</string>
+    <string name="related_shows">Shows Relacionados</string>
     <string name="score">Puntuación: %1$s</string>
 </resources>

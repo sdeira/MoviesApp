@@ -4,13 +4,13 @@ import android.view.View;
 
 import com.sebas.sysfishapp.videofeed.BaseAdapter;
 import com.sebas.sysfishapp.videofeed.R;
-import com.sebas.sysfishapp.videofeed.model.Movie;
+import com.sebas.sysfishapp.videofeed.model.Show;
 
 /**
  * Created by sebastiandeira on 24/2/18.
  */
 
-public class MainAdapter extends BaseAdapter<MovieViewHolder> {
+public class MainAdapter extends BaseAdapter<ShowViewHolder> {
 
     /**
      * Constructor
@@ -20,24 +20,24 @@ public class MainAdapter extends BaseAdapter<MovieViewHolder> {
     }
 
     @Override
-    protected void onBindChildViewHolder(MovieViewHolder holder, int position) {
-        final Movie movie = list.get(position);
+    protected void onBindChildViewHolder(ShowViewHolder holder, int position) {
+        final Show show = list.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listenerWeakReference.get().onMovieClick(movie);
+                listenerWeakReference.get().onShowClick(show);
             }
         });
-        holder.bind(movie.getPosterPath(), movie.getName(), movie.getFirstAirDate(), movie.getOverview(), movie.getVoteAverage());
+        holder.bind(show.getPosterPath(), show.getName(), show.getFirstAirDate(), show.getOverview(), show.getVoteAverage());
     }
 
     @Override
     protected int getViewLayout() {
-        return R.layout.movie_row;
+        return R.layout.show_row;
     }
 
     @Override
-    protected MovieViewHolder onCreateChildViewHolder(View itemView) {
-        return new MovieViewHolder(itemView);
+    protected ShowViewHolder onCreateChildViewHolder(View itemView) {
+        return new ShowViewHolder(itemView);
     }
 }

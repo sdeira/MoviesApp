@@ -5,19 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/related_movie_image"
+        android:id="@+id/related_show_image"
         android:layout_width="150dp"
         android:layout_height="150dp" />
 
     <TextView
-        android:id="@+id/related_movie_name"
+        android:id="@+id/related_show_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/related_movie_image"
-        android:layout_alignRight="@+id/related_movie_image"
-        android:layout_alignEnd="@+id/related_movie_image"
-        android:layout_alignStart="@+id/related_movie_image"
-        android:layout_alignLeft="@+id/related_movie_image"
+        android:layout_below="@+id/related_show_image"
+        android:layout_alignRight="@+id/related_show_image"
+        android:layout_alignEnd="@+id/related_show_image"
+        android:layout_alignStart="@+id/related_show_image"
+        android:layout_alignLeft="@+id/related_show_image"
         tools:text="The Walking Dead"
         android:layout_marginTop="3dp"
         android:gravity="center"

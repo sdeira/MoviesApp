@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sebas.sysfishapp.videofeed.main.OnItemClickListener;
-import com.sebas.sysfishapp.videofeed.model.Movie;
+import com.sebas.sysfishapp.videofeed.model.Show;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    protected List<Movie> list = new ArrayList<>();
+    protected List<Show> list = new ArrayList<>();
     protected WeakReference<OnItemClickListener> listenerWeakReference;
 
     @Override
@@ -33,9 +33,9 @@ public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends Rec
         onBindChildViewHolder((T) holder, position);
     }
 
-    public void setMovies(final List<Movie> movies) {
+    public void setShows(final List<Show> shows) {
         list.clear();
-        list.addAll(movies);
+        list.addAll(shows);
         notifyDataSetChanged();
     }
 
@@ -43,11 +43,11 @@ public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends Rec
         this.listenerWeakReference = new WeakReference<>(listener);
     }
 
-    public void addMovies(final List<Movie> newMovies) {
+    public void addShows(final List<Show> newShows) {
         final int initialSize = list.size();
-        for (final Movie movie : newMovies) {
-            if (!list.contains(movie)) {
-                list.add(movie);
+        for (final Show show : newShows) {
+            if (!list.contains(show)) {
+                list.add(show);
             }
         }
         notifyItemRangeInserted(initialSize, list.size() - initialSize);

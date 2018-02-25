@@ -1,25 +1,24 @@
 package com.sebas.sysfishapp.videofeed;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.sebas.sysfishapp.videofeed.model.MoviesPaging;
+import com.sebas.sysfishapp.videofeed.model.ShowsPaging;
 
 /**
  * Created by sebastiandeira on 24/2/18.
  */
 
-public class MoviesApi {
+public class ShowsApi {
 
-    public static void getRelatedMovies(final Context context, final long movieId, final MoviesListener listener) {
+    public static void getRelatedShows(final Context context, final long showId, final ShowsListener listener) {
         final String idTag = "{id}";
-        final String relatedMoviesUrl = Settings.RELATED_MOVIES_URL.replace(idTag, String.valueOf(movieId));
+        final String relatedShowsUrl = Settings.RELATED_SHOWS_URL.replace(idTag, String.valueOf(showId));
         Ion.with(context)
-                .load(relatedMoviesUrl)
+                .load(relatedShowsUrl)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -29,18 +28,18 @@ public class MoviesApi {
                             listener.onFailed();
                         } else {
                             final Gson gson = new Gson();
-                            final MoviesPaging moviesPaging = gson.fromJson(result, MoviesPaging.class);
-                            listener.onSuccess(moviesPaging);
+                            final ShowsPaging showsPaging = gson.fromJson(result, ShowsPaging.class);
+                            listener.onSuccess(showsPaging);
                         }
                     }
                 });
     }
 
-    public static void getMovies(final Context context, final int page, final MoviesListener listener) {
+    public static void getShows(final Context context, final int page, final ShowsListener listener) {
         final String pageTag = "{page}";
-        final String popularMoviesUrl = Settings.POPULAR_MOVIES_URL.replace(pageTag, String.valueOf(page));
+        final String popularShowsUrl = Settings.POPULAR_SHOWS_URL.replace(pageTag, String.valueOf(page));
         Ion.with(context)
-                .load(popularMoviesUrl)
+                .load(popularShowsUrl)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -50,15 +49,15 @@ public class MoviesApi {
                             listener.onFailed();
                         } else {
                             final Gson gson = new Gson();
-                            final MoviesPaging moviesPaging = gson.fromJson(result, MoviesPaging.class);
-                            listener.onSuccess(moviesPaging);
+                            final ShowsPaging showsPaging = gson.fromJson(result, ShowsPaging.class);
+                            listener.onSuccess(showsPaging);
                         }
                     }
                 });
     }
 
-    public interface MoviesListener {
-        void onSuccess(final MoviesPaging moviesPaging);
+    public interface ShowsListener {
+        void onSuccess(final ShowsPaging showsPaging);
         void onFailed();
     }
 }

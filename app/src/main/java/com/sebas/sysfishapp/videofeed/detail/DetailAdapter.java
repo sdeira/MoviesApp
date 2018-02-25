@@ -4,13 +4,13 @@ import android.view.View;
 
 import com.sebas.sysfishapp.videofeed.BaseAdapter;
 import com.sebas.sysfishapp.videofeed.R;
-import com.sebas.sysfishapp.videofeed.model.Movie;
+import com.sebas.sysfishapp.videofeed.model.Show;
 
 /**
  * Created by sebastiandeira on 25/2/18.
  */
 
-public class DetailAdapter extends BaseAdapter<RelatedMovieViewHolder> {
+public class DetailAdapter extends BaseAdapter<RelatedShowViewHolder> {
 
     /**
      * Default Constructor
@@ -19,24 +19,24 @@ public class DetailAdapter extends BaseAdapter<RelatedMovieViewHolder> {
     }
 
     @Override
-    protected void onBindChildViewHolder(RelatedMovieViewHolder holder, int position) {
-        final Movie movie = list.get(position);
+    protected void onBindChildViewHolder(RelatedShowViewHolder holder, int position) {
+        final Show show = list.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listenerWeakReference.get().onMovieClick(movie);
+                listenerWeakReference.get().onShowClick(show);
             }
         });
-        holder.bind(movie.getPosterPath(), movie.getName());
+        holder.bind(show.getPosterPath(), show.getName());
     }
 
     @Override
     protected int getViewLayout() {
-        return R.layout.related_movie_row;
+        return R.layout.related_show_row;
     }
 
     @Override
-    protected RelatedMovieViewHolder onCreateChildViewHolder(View itemView) {
-        return new RelatedMovieViewHolder(itemView);
+    protected RelatedShowViewHolder onCreateChildViewHolder(View itemView) {
+        return new RelatedShowViewHolder(itemView);
     }
 }

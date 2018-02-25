@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.sebas.sysfishapp.videofeed.R;
 import com.sebas.sysfishapp.videofeed.detail.DetailActivity;
-import com.sebas.sysfishapp.videofeed.model.Movie;
+import com.sebas.sysfishapp.videofeed.model.Show;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class MainActivity extends Activity implements MainView, OnItemClickListe
         initRecyclerView();
 
         presenter = new MainPresenter(this);
-        presenter.loadMovies(this);
+        presenter.loadShows(this);
 
     }
 
@@ -60,24 +60,24 @@ public class MainActivity extends Activity implements MainView, OnItemClickListe
         final int itemCount = linearLayoutManager.getItemCount();
         final int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
         if (lastVisiblePosition == itemCount - 1) {
-            presenter.loadMovies(this);
+            presenter.loadShows(this);
         }
     }
 
     @Override
-    public void addDataToView(List<Movie> data) {
-        mainAdapter.addMovies(data);
+    public void addDataToView(List<Show> data) {
+        mainAdapter.addShows(data);
     }
 
     @Override
-    public void setDataToView(List<Movie> data) {
-        mainAdapter.setMovies(data);
+    public void setDataToView(List<Show> data) {
+        mainAdapter.setShows(data);
     }
 
     @Override
-    public void onMovieClick(Movie movie) {
+    public void onShowClick(Show show) {
         final Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(DetailActivity.EXTRA_MOVIE, movie);
+        intent.putExtra(DetailActivity.EXTRA_SHOW, show);
         startActivity(intent);
     }
 }
