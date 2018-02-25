@@ -6,6 +6,7 @@ import com.sebas.sysfishapp.videofeed.BaseAdapter;
 import com.sebas.sysfishapp.videofeed.R;
 import com.sebas.sysfishapp.videofeed.model.Movie;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class MainAdapter extends BaseAdapter<MovieViewHolder, Movie> {
     private List<Movie> list = new ArrayList<>();
+    private WeakReference<OnItemClickListener> listenerWeakReference;
 
     /**
      * Constructor
@@ -27,6 +29,10 @@ public class MainAdapter extends BaseAdapter<MovieViewHolder, Movie> {
         list.clear();
         list.addAll(movies);
         notifyDataSetChanged();
+    }
+
+    public void setOnItemClickListener(final OnItemClickListener listener) {
+        this.listenerWeakReference = new WeakReference<>(listener);
     }
 
     public void addMovies(final List<Movie> newMovies) {
@@ -52,6 +58,12 @@ public class MainAdapter extends BaseAdapter<MovieViewHolder, Movie> {
     @Override
     protected void onBindChildViewHolder(MovieViewHolder holder, int position) {
         final Movie movie = list.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listenerWeakReference.get().onMovieClick(movie);
+            }
+        });
         holder.bind(movie.getPosterPath(), movie.getName(), movie.getFirstAirDate(), movie.getOverview(), movie.getVoteAverage());
     }
 

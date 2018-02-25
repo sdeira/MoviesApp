@@ -1,6 +1,7 @@
 package com.sebas.sysfishapp.videofeed.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -8,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.sebas.sysfishapp.videofeed.R;
+import com.sebas.sysfishapp.videofeed.detail.DetailActivity;
 import com.sebas.sysfishapp.videofeed.model.Movie;
 
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
  * Created by sebastiandeira on 24/2/18.
  */
 
-public class MainActivity extends Activity implements MainView {
+public class MainActivity extends Activity implements MainView, OnItemClickListener {
 
     private RecyclerView recyclerView;
     private MainAdapter mainAdapter;
@@ -41,6 +43,7 @@ public class MainActivity extends Activity implements MainView {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 linearLayoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
+        mainAdapter.setOnItemClickListener(this);
         recyclerView.setAdapter(mainAdapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -69,5 +72,12 @@ public class MainActivity extends Activity implements MainView {
     @Override
     public void setDataToView(List<Movie> data) {
         mainAdapter.setMovies(data);
+    }
+
+    @Override
+    public void onMovieClick(Movie movie) {
+        final Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("movie", movie);
+        startActivity(intent);
     }
 }
