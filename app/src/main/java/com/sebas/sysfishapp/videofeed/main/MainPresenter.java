@@ -26,22 +26,27 @@ public class MainPresenter extends MvpPresenter<MainView> implements ShowsApi.Sh
     }
 
     public void loadShows(final Context context) {
+        getView().showLoading(true);
         ShowsApi.getShows(context, page, this);
     }
 
     @Override
-    public void onSuccess(ShowsPaging showsPaging) {
+    public void onSuccess(final ShowsPaging showsPaging) {
+        final MainView view = getView();
+        view.showLoading(false);
         List<Show> results = showsPaging.getResults();
         if (showsPaging.getPage() == 0) {
-            getView().setDataToView(results);
+            view.setDataToView(results);
         } else {
-            getView().addDataToView(results);
+            view.addDataToView(results);
         }
         page = showsPaging.getPage() + 1;
     }
 
     @Override
     public void onFailed() {
-
+        final MainView view = getView();
+        view.showLoading(false);
+        view.showError();
     }
 }

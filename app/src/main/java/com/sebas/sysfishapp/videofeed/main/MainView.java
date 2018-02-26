@@ -20,4 +20,15 @@ public interface MainView {
      * @param data of the shows
      */
     void setDataToView(final List<Show> data);
+
+    /**
+     * Show loading
+     * @param showLoading true to set it visible and false to hide it
+     */
+    void showLoading(final boolean showLoading);
+
+    /**
+     * Show error
+     */
+    void showError();
 }

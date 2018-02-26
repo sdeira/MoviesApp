@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
+    <TextView
+        android:id="@+id/main_activity_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/error"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/main_activity_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_centerInParent="true">
+
+    </ProgressBar>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_main_activity"
         android:layout_width="match_parent"
@@ -13,13 +31,6 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_centerInParent="true">
 
-    </Spinner>
 
 </RelativeLayout>

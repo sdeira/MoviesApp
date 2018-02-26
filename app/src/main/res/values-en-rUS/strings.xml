@@ -2,4 +2,5 @@
 <resources>
     <string name="related_shows">Related Shows</string>
     <string name="score">Score: %1$s</string>
+    <string name="error">An error has occur, please try again later</string>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +22,7 @@ import java.util.List;
  * Created by sebastiandeira on 24/2/18.
  */
 
-public class DetailActivity extends Activity implements DetailView, OnItemClickListener {
+public class DetailActivity extends AppCompatActivity implements DetailView, OnItemClickListener {
     public final static String EXTRA_SHOW = "extra_show";
 
     private DetailAdapter adapter;
