@@ -7,6 +7,10 @@ package com.sebas.sysfishapp.videofeed;
 public abstract class MvpPresenter<V> {
     private V view;
 
+    public MvpPresenter() {
+
+    }
+
     public MvpPresenter(V view) {
         this.view = view;
     }

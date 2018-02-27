@@ -18,6 +18,13 @@ public class MainPresenter extends MvpPresenter<MainView> implements ShowsApi.Sh
     private int page = 1;
 
     /**
+     * Default Constructor
+     */
+    public MainPresenter() {
+
+    }
+
+    /**
      * Constructor
      * @param view to be called in the activity
      */
