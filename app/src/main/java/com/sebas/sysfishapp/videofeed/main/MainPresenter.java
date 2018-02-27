@@ -42,11 +42,8 @@ public class MainPresenter extends MvpPresenter<MainView> implements ShowsApi.Sh
         final MainView view = getView();
         view.showLoading(false);
         List<Show> results = showsPaging.getResults();
-        if (showsPaging.getPage() == 0) {
-            view.setDataToView(results);
-        } else {
-            view.addDataToView(results);
-        }
+        view.setTotalShowsCount(showsPaging.getTotalResults());
+        view.addDataToView(results);
         page = showsPaging.getPage() + 1;
     }
 

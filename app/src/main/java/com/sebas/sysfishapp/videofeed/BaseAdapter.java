@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.sebas.sysfishapp.videofeed.main.LoadingViewHolder;
+import com.sebas.sysfishapp.videofeed.main.DefaultViewHolder;
 import com.sebas.sysfishapp.videofeed.main.OnItemClickListener;
 import com.sebas.sysfishapp.videofeed.model.Show;
 
@@ -21,7 +21,8 @@ import java.util.List;
 public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int SHOW_TYPE = 22;
     private static final int LOADING_TYPE = 23;
-
+    private static final int NO_MORE_SHOWS = 24;
+    private int serverShowsCount;
     protected List<Show> list = new ArrayList<>();
     protected WeakReference<OnItemClickListener> listenerWeakReference;
 
@@ -31,9 +32,13 @@ public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends Rec
         final View itemView;
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
+            case NO_MORE_SHOWS:
+                itemView = inflater.inflate(R.layout.no_more_shows_row, parent, false);
+                viewHolder = new DefaultViewHolder(itemView);
+                break;
             case LOADING_TYPE:
                 itemView = inflater.inflate(R.layout.loading_row, parent, false);
-                viewHolder = new LoadingViewHolder(itemView);
+                viewHolder = new DefaultViewHolder(itemView);
                 break;
             case SHOW_TYPE:
                 itemView = inflater.inflate(getViewLayout(), parent, false);
@@ -64,7 +69,17 @@ public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends Rec
 
     @Override
     public int getItemViewType(int position) {
-       return position >= list.size() ? LOADING_TYPE : SHOW_TYPE;
+        if (serverShowsCount > 0 && position >= serverShowsCount) {
+            return NO_MORE_SHOWS;
+        } else if (position >= list.size()) {
+            return LOADING_TYPE;
+        } else {
+            return SHOW_TYPE;
+        }
+    }
+
+    public void setServerShowsCount(final int serverShowsCount) {
+        this.serverShowsCount = serverShowsCount;
     }
 
     public void addShows(final List<Show> newShows) {

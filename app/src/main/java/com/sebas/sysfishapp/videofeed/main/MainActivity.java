@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements MainView, OnItemC
     }
 
     @Override
-    public void setDataToView(List<Show> data) {
-        mainAdapter.setShows(data);
+    public void setTotalShowsCount(int totalShowsCount) {
+        mainAdapter.setServerShowsCount(totalShowsCount);
     }
 
     @Override

@@ -7,8 +7,8 @@ import android.view.View;
  * Created by sebastiandeira on 26/2/18.
  */
 
-public class LoadingViewHolder extends RecyclerView.ViewHolder {
-    public LoadingViewHolder(View itemView) {
+public class DefaultViewHolder extends RecyclerView.ViewHolder {
+    public DefaultViewHolder(View itemView) {
         super(itemView);
     }
 }

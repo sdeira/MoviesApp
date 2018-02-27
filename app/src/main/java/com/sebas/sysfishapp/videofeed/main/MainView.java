@@ -16,10 +16,10 @@ public interface MainView {
     void addDataToView(final List<Show> data);
 
     /**
-     * Set the shows to the view
-     * @param data of the shows
+     * Set the number of shows available
+     * @param totalShowsCount the number of shows that the server have
      */
-    void setDataToView(final List<Show> data);
+    void setTotalShowsCount(final int totalShowsCount);
 
     /**
      * Show loading

@@ -40,6 +40,6 @@ public class DetailPresenter extends MvpPresenter<DetailView> implements ShowsAp
 
     @Override
     public void onFailed() {
-
+        getView().hideRelatedShows();
     }
 }
