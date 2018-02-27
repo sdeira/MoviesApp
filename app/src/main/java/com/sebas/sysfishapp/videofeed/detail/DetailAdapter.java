@@ -36,6 +36,11 @@ public class DetailAdapter extends BaseAdapter<RelatedShowViewHolder> {
     }
 
     @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    @Override
     protected RelatedShowViewHolder onCreateChildViewHolder(View itemView) {
         return new RelatedShowViewHolder(itemView);
     }

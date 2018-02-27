@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sebas.sysfishapp.videofeed.main.LoadingViewHolder;
 import com.sebas.sysfishapp.videofeed.main.OnItemClickListener;
 import com.sebas.sysfishapp.videofeed.model.Show;
 
@@ -18,19 +19,37 @@ import java.util.List;
  */
 
 public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final int SHOW_TYPE = 22;
+    private static final int LOADING_TYPE = 23;
+
     protected List<Show> list = new ArrayList<>();
     protected WeakReference<OnItemClickListener> listenerWeakReference;
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View itemView = LayoutInflater.from(parent.getContext()).inflate(getViewLayout(), parent, false);
+        RecyclerView.ViewHolder viewHolder = null;
+        final View itemView;
+        final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        switch (viewType) {
+            case LOADING_TYPE:
+                itemView = inflater.inflate(R.layout.loading_row, parent, false);
+                viewHolder = new LoadingViewHolder(itemView);
+                break;
+            case SHOW_TYPE:
+                itemView = inflater.inflate(getViewLayout(), parent, false);
+                viewHolder = onCreateChildViewHolder(itemView);
+                break;
 
-        return onCreateChildViewHolder(itemView);
+        }
+
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        onBindChildViewHolder((T) holder, position);
+        if (SHOW_TYPE == holder.getItemViewType()) {
+            onBindChildViewHolder((T) holder, position);
+        }
     }
 
     public void setShows(final List<Show> shows) {
@@ -41,6 +60,11 @@ public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends Rec
 
     public void setOnItemClickListener(final OnItemClickListener listener) {
         this.listenerWeakReference = new WeakReference<>(listener);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+       return position >= list.size() ? LOADING_TYPE : SHOW_TYPE;
     }
 
     public void addShows(final List<Show> newShows) {
@@ -55,7 +79,7 @@ public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends Rec
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list.isEmpty() ? 0 : list.size() + 1;
     }
 
     protected abstract void onBindChildViewHolder(T holder, int position);
