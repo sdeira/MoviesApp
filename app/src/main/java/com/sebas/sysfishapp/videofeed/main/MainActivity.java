@@ -15,6 +15,7 @@ import com.sebas.sysfishapp.videofeed.R;
 import com.sebas.sysfishapp.videofeed.detail.DetailActivity;
 import com.sebas.sysfishapp.videofeed.model.Show;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,10 +23,13 @@ import java.util.List;
  */
 
 public class MainActivity extends AppCompatActivity implements MainView, OnItemClickListener {
-
+    private static final String FIRST_LOAD_STATE = "first_load_state";
+    public static final String SHOW_LISTS_STATE = "show_lists_state";
+    public static final String PAGE_LIST_STATE = "page_list-state";
     private RecyclerView recyclerView;
     private MainAdapter mainAdapter;
     private MainPresenter presenter;
+    private boolean isFirstLoad = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,14 +37,32 @@ public class MainActivity extends AppCompatActivity implements MainView, OnItemC
         setContentView(R.layout.main_activity);
         initRecyclerView();
 
-        presenter = new MainPresenter(this);
-        presenter.loadShows(this);
+        List<Show> movies = null;
+        int page = 1;
+        if (savedInstanceState != null) {
+            isFirstLoad = savedInstanceState.getBoolean(FIRST_LOAD_STATE);
+            movies = (ArrayList) savedInstanceState.getSerializable(SHOW_LISTS_STATE);
+            page = savedInstanceState.getInt(PAGE_LIST_STATE);
+        }
+        if (presenter == null) {
+            presenter = new MainPresenter(this);
+        }
+
+        if (isFirstLoad) {
+            isFirstLoad = false;
+            presenter.loadShows(this);
+        } else {
+            presenter.setPage(page);
+            mainAdapter.setShows(movies);
+        }
 
     }
 
     private void initRecyclerView() {
         recyclerView = findViewById(R.id.recycler_view_main_activity);
-        mainAdapter = new MainAdapter();
+        if (mainAdapter == null) {
+            mainAdapter = new MainAdapter();
+        }
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -94,5 +116,14 @@ public class MainActivity extends AppCompatActivity implements MainView, OnItemC
         final Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(DetailActivity.EXTRA_SHOW, show);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable(SHOW_LISTS_STATE, (ArrayList) mainAdapter.getList());
+        outState.putInt(PAGE_LIST_STATE, presenter.getPage());
+        outState.putBoolean(FIRST_LOAD_STATE, isFirstLoad);
     }
 }

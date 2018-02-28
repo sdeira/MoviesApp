@@ -97,6 +97,14 @@ public abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends Rec
         return list.isEmpty() ? 0 : list.size() + 1;
     }
 
+    /**
+     * Get the list shows
+     * @return the list of the shows
+     */
+    public final List<Show> getList() {
+        return list;
+    }
+
     protected abstract void onBindChildViewHolder(T holder, int position);
 
     @LayoutRes

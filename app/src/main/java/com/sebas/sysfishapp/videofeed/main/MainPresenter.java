@@ -53,4 +53,12 @@ public class MainPresenter extends MvpPresenter<MainView> implements ShowsApi.Sh
         view.showLoading(false);
         view.showError();
     }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(final int page) {
+        this.page = page;
+    }
 }
