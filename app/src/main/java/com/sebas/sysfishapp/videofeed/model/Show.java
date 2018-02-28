@@ -28,6 +28,8 @@ public class Show implements Parcelable {
     @SerializedName("poster_path")
     private String posterPath;
 
+    public Show() {
+    }
 
     protected Show(Parcel in) {
         id = in.readLong();
@@ -87,6 +89,38 @@ public class Show implements Parcelable {
 
     public String getPosterPath() {
         return posterPath;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setVoteCount(String voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public void setFirstAirDate(String firstAirDate) {
+        this.firstAirDate = firstAirDate;
+    }
+
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
+    }
+
+    public void setVoteAverage(String voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 
     @Override
