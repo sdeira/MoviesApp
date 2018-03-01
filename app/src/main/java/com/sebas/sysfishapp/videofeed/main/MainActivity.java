@@ -1,6 +1,7 @@
 package com.sebas.sysfishapp.videofeed.main;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.sebas.sysfishapp.videofeed.db.ShowReaderDbHelper;
 import com.sebas.sysfishapp.videofeed.detail.DetailActivity;
 import com.sebas.sysfishapp.videofeed.model.Show;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +26,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView, OnItemClickListener {
     private static final String FIRST_LOAD_STATE = "first_load_state";
-    public static final String SCROLL_POSITION = "scroll_position";
-    public static final String PAGE_LIST_STATE = "page_list-state";
+    private static final String SCROLL_POSITION = "scroll_position";
+    private static final String PAGE_LIST_STATE = "page_list_state";
+    private static final String SHOWS_EXTRA = "shows_extra";
     private RecyclerView recyclerView;
     private MainAdapter mainAdapter;
     private MainPresenter presenter;
@@ -39,12 +42,15 @@ public class MainActivity extends AppCompatActivity implements MainView, OnItemC
         setContentView(R.layout.main_activity);
         initRecyclerView();
 
-        List<Show> movies = null;
+        List<Show> shows = null;
         int page = 1;
         if (savedInstanceState != null) {
             isFirstLoad = savedInstanceState.getBoolean(FIRST_LOAD_STATE);
-
-            movies = getDbHelper().getShowsFromDB();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                shows = getDbHelper().getShowsFromDB();
+            } else {
+                shows = (ArrayList) savedInstanceState.getSerializable(SHOWS_EXTRA);
+            }
             page = savedInstanceState.getInt(PAGE_LIST_STATE);
             scrollPosition = savedInstanceState.getInt(SCROLL_POSITION);
         }
@@ -57,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainView, OnItemC
             presenter.loadShows(this);
         } else {
             presenter.setPage(page);
-            mainAdapter.setShows(movies);
+            mainAdapter.setShows(shows);
             recyclerView.scrollToPosition(scrollPosition);
         }
 
@@ -146,7 +152,11 @@ public class MainActivity extends AppCompatActivity implements MainView, OnItemC
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        getDbHelper().saveShowsInDB(mainAdapter.getList());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            getDbHelper().saveShowsInDB(mainAdapter.getList());
+        } else {
+            outState.putSerializable(SHOWS_EXTRA, (ArrayList) mainAdapter.getList());
+        }
         outState.putInt(SCROLL_POSITION, scrollPosition);
         outState.putInt(PAGE_LIST_STATE, presenter.getPage());
         outState.putBoolean(FIRST_LOAD_STATE, isFirstLoad);
