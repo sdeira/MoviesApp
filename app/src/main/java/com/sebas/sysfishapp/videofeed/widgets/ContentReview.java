@@ -16,6 +16,7 @@ import com.sebas.sysfishapp.videofeed.R;
 
 public class ContentReview extends LinearLayout {
 
+    private int score;
     public ContentReview(Context context) {
         this(context, null);
     }
@@ -39,7 +40,12 @@ public class ContentReview extends LinearLayout {
         }
     }
 
+    /**
+     * Set the score review to show the stars
+     * @param score to show the stars
+     */
     public void setReview(final int score) {
+        this.score = score;
         for (int i = 0; i < getChildCount(); i++) {
             final ImageView image = (ImageView) getChildAt(i);
             final int starPosition = i + 1;
@@ -49,5 +55,13 @@ public class ContentReview extends LinearLayout {
                 image.setImageResource(R.drawable.star_disable);
             }
         }
+    }
+
+    /**
+     * Get the score review
+     * @return the score
+     */
+    public int getScore() {
+        return score;
     }
 }

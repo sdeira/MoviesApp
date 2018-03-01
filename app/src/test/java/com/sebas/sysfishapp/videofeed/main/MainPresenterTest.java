@@ -1,4 +1,4 @@
-package com.sebas.sysfishapp.videofeed;
+package com.sebas.sysfishapp.videofeed.main;
 
 import com.sebas.sysfishapp.videofeed.main.MainPresenter;
 import com.sebas.sysfishapp.videofeed.main.MainView;
