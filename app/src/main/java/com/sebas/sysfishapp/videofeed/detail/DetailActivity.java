@@ -15,7 +15,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.sebas.sysfishapp.videofeed.R;
 import com.sebas.sysfishapp.videofeed.main.OnItemClickListener;
 import com.sebas.sysfishapp.videofeed.model.Show;
+import com.sebas.sysfishapp.videofeed.widgets.ContentReview;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -48,12 +50,14 @@ public class DetailActivity extends AppCompatActivity implements DetailView, OnI
         final TextView nameTextView = findViewById(R.id.detail_show_name);
         final TextView firstAirDateTextView = findViewById(R.id.detail_show_air_datee);
         final TextView overviewTextView = findViewById(R.id.detail_show_overview);
-        final TextView averageVoteTextView = findViewById(R.id.detail_show_vote_average) ;
+        final ContentReview averageVoteTextView = findViewById(R.id.detail_activity_review) ;
         simpleDraweeView.setImageURI(imageUrl);
         nameTextView.setText(name);
         firstAirDateTextView.setText(firstAirDate);
         overviewTextView.setText(overview);
-        averageVoteTextView.setText(getResources().getString(R.string.score, averageVote));
+        final BigDecimal bigDecimal = new BigDecimal(averageVote);
+        final BigDecimal half = bigDecimal.divide(new BigDecimal("2"));
+        averageVoteTextView.setReview(half.intValue());
 
     }
 

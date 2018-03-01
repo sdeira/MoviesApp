@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="related_shows">Related Shows</string>
-    <string name="score">Score: %1$s</string>
     <string name="error">An error has occur, please try again later</string>
     <string name="no_more_shows">no more shows available</string>
 </resources>

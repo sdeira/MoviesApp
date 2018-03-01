@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">VideoFeed</string>
     <string name="related_shows">Shows Relacionados</string>
-    <string name="score">Puntuación: %1$s</string>
     <string name="error">Se ha producido un error, inténtelo mas tarde</string>
     <string name="no_more_shows">No hay mas shows disponibles</string>
 </resources>
