@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.sebas.sysfishapp.videofeed.R;
 import com.sebas.sysfishapp.videofeed.db.ShowReaderDbHelper;
 import com.sebas.sysfishapp.videofeed.detail.DetailActivity;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements MainView, OnItemC
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         setContentView(R.layout.main_activity);
         initRecyclerView();
 

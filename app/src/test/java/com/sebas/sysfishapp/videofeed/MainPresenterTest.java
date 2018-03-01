@@ -34,7 +34,7 @@ public class MainPresenterTest {
         Mockito.when(showsPaging.getResults()).thenReturn(list);
         Mockito.when(showsPaging.getPage()).thenReturn(0);
         mainPresenter.onSuccess(showsPaging);
-        Mockito.verify(mainView).setDataToView(list);
+        Mockito.verify(mainView).addDataToView(list);
 
     }
 
