@@ -1,6 +1,7 @@
 package com.sebas.sysfishapp.videofeed.main;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sebas.sysfishapp.videofeed.R;
+import com.sebas.sysfishapp.videofeed.db.ShowReaderDbHelper;
 import com.sebas.sysfishapp.videofeed.detail.DetailActivity;
 import com.sebas.sysfishapp.videofeed.model.Show;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,10 +25,16 @@ import java.util.List;
  */
 
 public class MainActivity extends AppCompatActivity implements MainView, OnItemClickListener {
-
+    private static final String FIRST_LOAD_STATE = "first_load_state";
+    private static final String SCROLL_POSITION = "scroll_position";
+    private static final String PAGE_LIST_STATE = "page_list_state";
+    private static final String SHOWS_EXTRA = "shows_extra";
     private RecyclerView recyclerView;
     private MainAdapter mainAdapter;
     private MainPresenter presenter;
+    private boolean isFirstLoad = true;
+    private ShowReaderDbHelper dbHelper;
+    private int scrollPosition;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,14 +42,51 @@ public class MainActivity extends AppCompatActivity implements MainView, OnItemC
         setContentView(R.layout.main_activity);
         initRecyclerView();
 
-        presenter = new MainPresenter(this);
-        presenter.loadShows(this);
+        List<Show> shows = null;
+        int page = 1;
+        if (savedInstanceState != null) {
+            isFirstLoad = savedInstanceState.getBoolean(FIRST_LOAD_STATE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                shows = getDbHelper().getShowsFromDB();
+            } else {
+                shows = (ArrayList) savedInstanceState.getSerializable(SHOWS_EXTRA);
+            }
+            page = savedInstanceState.getInt(PAGE_LIST_STATE);
+            scrollPosition = savedInstanceState.getInt(SCROLL_POSITION);
+        }
+        if (presenter == null) {
+            presenter = new MainPresenter(this);
+        }
 
+        if (isFirstLoad) {
+            isFirstLoad = false;
+            presenter.loadShows(this);
+        } else {
+            presenter.setPage(page);
+            mainAdapter.setShows(shows);
+            recyclerView.scrollToPosition(scrollPosition);
+        }
+
+    }
+
+    public ShowReaderDbHelper getDbHelper() {
+        if (dbHelper == null) {
+            dbHelper = new ShowReaderDbHelper(this);
+        }
+        return dbHelper;
+    }
+
+    @Override
+    protected void onDestroy() {
+        getDbHelper().close();
+        super.onDestroy();
     }
 
     private void initRecyclerView() {
         recyclerView = findViewById(R.id.recycler_view_main_activity);
-        mainAdapter = new MainAdapter();
+        if (mainAdapter == null) {
+            mainAdapter = new MainAdapter();
+        }
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -94,5 +140,25 @@ public class MainActivity extends AppCompatActivity implements MainView, OnItemC
         final Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(DetailActivity.EXTRA_SHOW, show);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        scrollPosition = ((LinearLayoutManager)
+                recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            getDbHelper().saveShowsInDB(mainAdapter.getList());
+        } else {
+            outState.putSerializable(SHOWS_EXTRA, (ArrayList) mainAdapter.getList());
+        }
+        outState.putInt(SCROLL_POSITION, scrollPosition);
+        outState.putInt(PAGE_LIST_STATE, presenter.getPage());
+        outState.putBoolean(FIRST_LOAD_STATE, isFirstLoad);
     }
 }
