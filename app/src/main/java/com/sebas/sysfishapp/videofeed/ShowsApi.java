@@ -23,7 +23,6 @@ public class ShowsApi {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        //TODO : check if the result has error and show error in the view
                         if (result == null) {
                             listener.onFailed();
                         } else {
@@ -44,7 +43,6 @@ public class ShowsApi {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        //TODO : check if the result has error and show error in the view
                         if (result == null) {
                             listener.onFailed();
                         } else {

@@ -4,24 +4,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.soloader.SoLoader;
 import com.sebas.sysfishapp.videofeed.main.DefaultViewHolder;
 import com.sebas.sysfishapp.videofeed.model.Show;
 
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by sebastiandeira on 1/3/18.
