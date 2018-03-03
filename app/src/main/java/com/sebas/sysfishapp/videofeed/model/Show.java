@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by sebastiandeira on 24/2/18.
  */
 
-public class Show implements Parcelable {
+public final class Show implements Parcelable {
     private long id;
     private String name;
 
@@ -133,5 +133,19 @@ public class Show implements Parcelable {
         parcel.writeString(voteAverage);
         parcel.writeString(overview);
         parcel.writeString(posterPath);
+    }
+
+    @Override
+    public String toString() {
+        return "Show{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", voteCount='" + voteCount + '\'' +
+                ", firstAirDate='" + firstAirDate + '\'' +
+                ", originalLanguage='" + originalLanguage + '\'' +
+                ", voteAverage='" + voteAverage + '\'' +
+                ", overview='" + overview + '\'' +
+                ", posterPath='" + posterPath + '\'' +
+                '}';
     }
 }

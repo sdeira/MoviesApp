@@ -11,7 +11,7 @@ import java.util.List;
  * Created by sebastiandeira on 24/2/18.
  */
 
-public class ShowsPaging implements Parcelable {
+public final class ShowsPaging implements Parcelable {
     private int page;
 
     @SerializedName("total_results")
@@ -68,5 +68,15 @@ public class ShowsPaging implements Parcelable {
 
     public List<Show> getResults() {
         return results;
+    }
+
+    @Override
+    public String toString() {
+        return "ShowsPaging{" +
+                "page=" + page +
+                ", totalResults=" + totalResults +
+                ", totalPages=" + totalPages +
+                ", results=" + results +
+                '}';
     }
 }
